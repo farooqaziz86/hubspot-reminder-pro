@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>HubSpot Reminder Pro</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 600px; margin: 20px auto; padding: 20px; }
+    h1 { color: #333; }
+    .upload-box { border: 2px dashed #ccc; padding: 30px; text-align: center; margin: 20px 0; }
+    button { background: #2185d0; color: white; border: none; padding: 10px 20px; cursor: pointer; }
+    button:hover { background: #1678c2; }
+  </style>
+</head>
+<body>
+  <h1>HubSpot Reminder Pro</h1>
+  
+  <div class="upload-box">
+    <form id="uploadForm" enctype="multipart/form-data">
+      <p><strong>Step 1:</strong> Set days threshold</p>
+      <input type="number" id="daysThreshold" name="daysThreshold" min="1" value="10" required>
+      
+      <p><strong>Step 2:</strong> Upload CSV</p>
+      <input type="file" id="csvFile" name="csvFile" accept=".csv" required>
+      <br><br>
+      <button type="submit">Process CSV</button>
+    </form>
+  </div>
+  
+  <div id="message" style="color: green; font-weight: bold;"></div>
+
+  <script>
+    document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData();
+      formData.append('daysThreshold', document.getElementById('daysThreshold').value);
+      formData.append('csvFile', document.getElementById('csvFile').files[0]);
+      
+      try {
+        const response = await fetch('/upload', { method: 'POST', body: formData });
+        const result = await response.text();
+        document.getElementById('message').textContent = result;
+      } catch (error) {
+        document.getElementById('message').textContent = 'Upload failed. Try again.';
+      }
+    });
+  </script>
+</body>
+</html>

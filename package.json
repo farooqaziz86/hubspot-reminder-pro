@@ -1,0 +1,17 @@
+{
+  "name": "hubspot-reminder-pro",
+  "version": "1.0.0",
+  "description": "Sends reminders for inactive HubSpot deals",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@sendgrid/mail": "^7.7.0",
+    "csv-parser": "^3.0.0",
+    "express": "^4.18.2",
+    "mongoose": "^6.10.0",
+    "multer": "^1.4.5-lts.1",
+    "node-cron": "^3.0.2"
+  }
+}
